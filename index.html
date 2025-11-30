@@ -1,0 +1,78 @@
+<!DOCTYPE html>
+<html lang="de">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>OnCraft – Webseite im Aufbau</title>
+    <style>
+        /* Reset & Basis */
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+            font-family: 'Segoe UI', Tahoma, Geneva, Verdana, sans-serif;
+        }
+
+        body {
+            display: flex;
+            flex-direction: column;
+            justify-content: center;
+            align-items: center;
+            min-height: 100vh;
+            background: linear-gradient(135deg, #1a1a1a, #333);
+            color: #fff;
+            text-align: center;
+        }
+
+        img.logo {
+            width: 630px;
+            height: 136px;
+            object-fit: contain;
+            margin-bottom: 40px;
+        }
+
+        h1 {
+            font-size: 2.5rem;
+            margin-bottom: 20px;
+        }
+
+        p {
+            font-size: 1.2rem;
+            margin-bottom: 10px;
+            color: #ccc;
+        }
+
+        a {
+            color: #4fc3f7;
+            text-decoration: none;
+            font-weight: bold;
+        }
+
+        a:hover {
+            text-decoration: underline;
+        }
+
+        .release-date {
+            margin-top: 30px;
+            font-size: 1rem;
+            color: #aaa;
+        }
+
+        /* Animation für leichtes Aufpoppen */
+        .fade-in {
+            animation: fadeIn 1.5s ease-in-out;
+        }
+
+        @keyframes fadeIn {
+            from { opacity: 0; transform: translateY(20px); }
+            to { opacity: 1; transform: translateY(0); }
+        }
+    </style>
+</head>
+<body>
+    <img src="oncraft_logo.png" alt="OnCraft Logo" class="logo fade-in">
+    <h1 class="fade-in">Diese Webseite ist im Aufbau</h1>
+    <p class="fade-in">Bei Fragen oder Support kontaktiere uns: <a href="mailto:sxmxon11@oncraft.de">sxmxon11@oncraft.de</a></p>
+    <p class="release-date fade-in">Geplantes Release-Datum: 01.02.2026</p>
+</body>
+</html>
