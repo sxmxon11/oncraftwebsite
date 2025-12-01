@@ -1,0 +1,206 @@
+<!doctype html>
+<html lang="de">
+<head>
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <title>ONCraft — Deutscher Minecraft Server</title>
+  <meta name="description" content="ONCraft ist ein moderner deutscher Minecraft‑Server mit Community, Events und fairer Wirtschaft. Trete jetzt bei und erlebe ONCraft!">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;600;800&display=swap" rel="stylesheet">
+  <link rel="icon" type="image/png" href="ONCraft_Mini.png">
+  <style>
+    :root { --bg: #0b0f18; --fg: #e6e7ea; --muted: #aeb4c0; --primary: #8b5cf6; --secondary: #06b6d4; --accent: #22d3ee; --glass: rgba(255,255,255,0.06); --border: rgba(255,255,255,0.18); }
+    * { box-sizing: border-box; }
+    html, body { height: 100%; }
+    body { margin: 0; font-family: Inter, system-ui, -apple-system, Segoe UI, Roboto, Helvetica, Arial, sans-serif; color: var(--fg); background: radial-gradient(1200px 600px at 10% 10%, #0c172a 0%, #0b0f18 55%, #070a12 100%); overflow-x: hidden; }
+    .bg { position: fixed; inset: 0; pointer-events: none; z-index: -1; }
+    .blob { position: absolute; filter: blur(80px); opacity: 0.35; mix-blend-mode: screen; }
+    .blob.b1 { width: 48vw; height: 48vw; left: -10vw; top: -12vw; background: radial-gradient(closest-side, #4c1d95, transparent 60%); }
+    .blob.b2 { width: 40vw; height: 40vw; right: -12vw; top: 20vh; background: radial-gradient(closest-side, #0ea5e9, transparent 60%); }
+    
+    header { position: sticky; top: 0; backdrop-filter: saturate(140%) blur(16px); background: linear-gradient(180deg, rgba(12,15,24,0.8), rgba(12,15,24,0.6)); border-bottom: 1px solid var(--border); z-index: 50; }
+    .nav { max-width: 1200px; margin: 0 auto; padding: 14px 20px; display: flex; align-items: center; justify-content: space-between; }
+    .brand { display: flex; align-items: center; gap: 12px; font-weight: 800; letter-spacing: 0.3px; }
+    .brand-badge { width: 36px; height: 36px; border-radius: 12px; background: url('ONCraft_Mini.png') center/cover no-repeat, linear-gradient(135deg, #8b5cf6, #22d3ee); box-shadow: 0 10px 30px rgba(139,92,246,0.35); }
+    nav a { color: var(--fg); text-decoration: none; margin: 0 10px; padding: 8px 12px; border-radius: 10px; transition: all .25s ease; }
+    nav a:hover { background: var(--glass); }
+    .cta { display: flex; gap: 10px; }
+    .btn { border: 1px solid var(--border); padding: 10px 14px; border-radius: 12px; background: var(--glass); color: var(--fg); font-weight: 600; letter-spacing: .2px; cursor: pointer; transition: all .25s ease; }
+    .btn:hover { transform: translateY(-1px); }
+    .btn.primary { background: linear-gradient(135deg, #7c3aed, #06b6d4); border-color: transparent; box-shadow: 0 10px 30px rgba(124,58,237,0.35), 0 6px 16px rgba(6,182,212,0.25); }
+    .btn.outline { background: transparent; }
+    .btn.small { padding: 6px 10px; font-size: 13px; }
+    .container { max-width: 1200px; margin: 0 auto; padding: 28px 20px; }
+    .page { display: none; }
+    .page.active { display: block; }
+    .hero { display: grid; grid-template-columns: 1fr; gap: 28px; align-items: center; padding-top: 42px; padding-bottom: 20px; }
+    .glass { background: var(--glass); border: 1px solid var(--border); border-radius: 20px; backdrop-filter: blur(20px) saturate(140%); box-shadow: 0 30px 80px rgba(0,0,0,0.45); }
+    .panel { padding: 28px; }
+    .kicker { display: inline-flex; align-items: center; gap: 10px; font-size: 14px; color: var(--muted); background: rgba(255,255,255,0.04); border: 1px solid var(--border); border-radius: 999px; padding: 8px 12px; }
+    .title { font-size: clamp(32px, 5vw, 56px); line-height: 1.06; margin: 16px 0 12px; font-weight: 800; }
+    .subtitle { font-size: clamp(15px, 2.2vw, 18px); color: var(--muted); }
+    .hero-actions { display: flex; flex-wrap: wrap; gap: 12px; margin-top: 18px; }
+    .ip { display: grid; gap: 10px; margin-top: 16px; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+    .ip-row { display: flex; align-items: center; justify-content: flex-start; gap: 10px; }
+    .status.offline { color: #fca5a5; }
+    .status-dot.offline { background: #ef4444; box-shadow: 0 0 0 6px rgba(239,68,68,0.15); }
+    .ip-code { font-feature-settings: "rlig" 1, "calt" 1; font-weight: 700; letter-spacing: .4px; }
+    .status { display: inline-flex; align-items: center; gap: 8px; font-size: 14px; color: #7ee787; }
+    .status-dot { width: 8px; height: 8px; border-radius: 50%; background: #22c55e; box-shadow: 0 0 0 6px rgba(34,197,94,0.15); }
+    .splash { height: 100%; min-height: 320px; border-radius: 20px; background: radial-gradient(120% 140% at 10% 10%, rgba(124,58,237,0.3), transparent 60%), radial-gradient(120% 140% at 90% 30%, rgba(34,211,238,0.3), transparent 60%), linear-gradient(135deg, rgba(255,255,255,0.06), rgba(255,255,255,0.02)); display: grid; place-items: center; }
+    .splash .badge { display: inline-block; padding: 10px 14px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); font-weight: 600; }
+    
+    .grid { display: grid; grid-template-columns: repeat(3, 1fr); gap: 18px; }
+    .card { border-radius: 18px; background: var(--glass); border: 1px solid var(--border); padding: 18px; display: flex; flex-direction: column; gap: 8px; }
+    .card h3 { margin: 6px 0; font-size: 18px; }
+    .card p { margin: 0; color: var(--muted); font-size: 15px; }
+    .section-title { font-weight: 800; font-size: 28px; margin: 10px 0 6px; }
+    .section-sub { color: var(--muted); margin-bottom: 18px; }
+    .list { display: grid; grid-template-columns: 1fr 1fr; gap: 12px; }
+    .list .item { display: flex; gap: 10px; align-items: flex-start; padding: 12px 14px; border-radius: 14px; background: rgba(255,255,255,0.04); border: 1px solid var(--border); }
+    .pill { display: inline-block; padding: 8px 10px; border-radius: 999px; background: rgba(255,255,255,0.08); border: 1px solid var(--border); font-size: 13px; }
+    
+    footer { border-top: 1px solid var(--border); margin-top: 24px; }
+    .footer { display: flex; justify-content: space-between; align-items: center; padding: 18px 0; color: var(--muted); }
+    @media (max-width: 980px) { .hero { grid-template-columns: 1fr; } .grid { grid-template-columns: 1fr 1fr; } .list { grid-template-columns: 1fr; } .nav { padding: 12px 16px; } }
+    @media (max-width: 620px) { .grid { grid-template-columns: 1fr; } .title { font-size: 34px; } nav { display: none; } }
+  </style>
+</head>
+<body>
+  <div class="bg">
+    <div class="blob b1"></div>
+    <div class="blob b2"></div>
+  </div>
+  <header>
+    <div class="nav">
+      <div class="brand">
+        <div class="brand-badge"></div>
+        <div>ONCraft</div>
+      </div>
+      <nav>
+        <a href="#start">Start</a>
+        <a href="#features">Features</a>
+        <a href="#regeln">Regeln</a>
+      </nav>
+      <div class="cta">
+        <a class="btn primary" href="#start">Jetzt beitreten</a>
+      </div>
+    </div>
+  </header>
+  <main class="container">
+    <section id="start" class="hero page active">
+      <div class="glass panel">
+        <div class="kicker">
+          <span>Deutscher Minecraft‑Server</span>
+          <span class="pill">Community • Events • Wirtschaft</span>
+        </div>
+        <h1 class="title">Willkommen bei ONCraft</h1>
+        <p class="subtitle">Baue, handle und kämpfe – zusammen macht’s Spaß. Faire Regeln, viele Events und eine freundliche Community.</p>
+        <div class="hero-actions">
+          <a class="btn primary" href="#features">Was macht uns aus?</a>
+        </div>
+        <div class="ip">
+          <div class="ip-row">
+            <strong>Java</strong>
+            <span class="ip-code" id="java-host">hall-overnight.gl.joinmc.link</span>
+            <button class="btn outline small" id="copy-java" data-ip="hall-overnight.gl.joinmc.link">Kopieren</button>
+            <span class="status" id="status-java"><span class="status-dot" id="dot-java"></span><span id="text-java">Prüfe…</span></span>
+          </div>
+          <div class="ip-row">
+            <strong>Bedrock</strong>
+            <span class="ip-code" id="bedrock-host">post-trademarks.gl.at.ply.gg • Port 12852 (Port erforderlich)</span>
+            <button class="btn outline small" id="copy-bedrock" data-ip="post-trademarks.gl.at.ply.gg">Kopieren</button>
+            <span class="status" id="status-bedrock"><span class="status-dot" id="dot-bedrock"></span><span id="text-bedrock">Prüfe…</span></span>
+          </div>
+        </div>
+      </div>
+      
+    </section>
+
+    <section id="features" class="panel glass page">
+      <h2 class="section-title">Features</h2>
+      <p class="section-sub">Das gibt’s bei uns:</p>
+      <div class="grid">
+        <div class="card">
+          <h3>CraftAttack</h3>
+          <p>Großes Gemeinschaftsprojekt. Baue, farme und arbeite zusammen.</p>
+        </div>
+        <div class="card">
+          <h3>SMP Events</h3>
+          <p>Coole Survival‑Events mit Aufgaben, Teams und Belohnungen.</p>
+        </div>
+        <div class="card">
+          <h3>Parkour</h3>
+          <p>Spring‑Parcours. Hol dir die Bestzeit und vergleiche dich.</p>
+        </div>
+      </div>
+    </section>
+
+    <section id="regeln" class="panel glass page">
+      <h2 class="section-title">Regeln</h2>
+      <p class="section-sub">So spielst du fair:</p>
+      <div class="list">
+        <div class="item"><strong>Sei nett</strong><span>Kein Spam, keine Beleidigungen.</span></div>
+        <div class="item"><strong>Keine Cheats</strong><span>Keine Hacks/Mods/Exploits.</span></div>
+        <div class="item"><strong>Handle fair</strong><span>Versprochenes einhalten, kein Scamming.</span></div>
+      </div>
+    </section>
+
+    
+  </main>
+  <footer>
+    <div class="container footer">
+      <div>© ONCraft</div>
+      <div>Impressum • Datenschutz • Kontakt</div>
+    </div>
+  </footer>
+  <script>
+    const copyJava = document.getElementById('copy-java');
+    if (copyJava) {
+      copyJava.addEventListener('click', async () => {
+        const ip = copyJava.getAttribute('data-ip');
+        try { await navigator.clipboard.writeText(ip); copyJava.textContent = 'Kopiert!'; setTimeout(() => copyJava.textContent = 'Kopieren', 1400); } catch (e) { copyJava.textContent = ip; }
+      });
+    }
+    const copyBedrock = document.getElementById('copy-bedrock');
+    if (copyBedrock) {
+      copyBedrock.addEventListener('click', async () => {
+        const ip = copyBedrock.getAttribute('data-ip');
+        try { await navigator.clipboard.writeText(ip); copyBedrock.textContent = 'Kopiert!'; setTimeout(() => copyBedrock.textContent = 'Bedrock kopieren', 1400); } catch (e) { copyBedrock.textContent = ip; }
+      });
+    }
+    const JAVA_HOST = 'hall-overnight.gl.joinmc.link';
+    const BEDROCK_HOST = 'post-trademarks.gl.at.ply.gg';
+    const BEDROCK_PORT = 12852;
+    async function checkStatus() {
+      try {
+        const rJava = await fetch('https://api.mcstatus.io/v2/status/java/' + JAVA_HOST);
+        const dJava = await rJava.json();
+        const onlineJava = !!dJava?.online;
+        document.getElementById('text-java').textContent = onlineJava ? 'Online' : 'Offline';
+        document.getElementById('dot-java').classList.toggle('offline', !onlineJava);
+        document.getElementById('status-java').classList.toggle('offline', !onlineJava);
+      } catch {}
+      try {
+        const rBed = await fetch('https://api.mcstatus.io/v2/status/bedrock/' + BEDROCK_HOST + ':' + BEDROCK_PORT);
+        const dBed = await rBed.json();
+        const onlineBed = !!dBed?.online;
+        document.getElementById('text-bedrock').textContent = onlineBed ? 'Online' : 'Offline';
+        document.getElementById('dot-bedrock').classList.toggle('offline', !onlineBed);
+        document.getElementById('status-bedrock').classList.toggle('offline', !onlineBed);
+      } catch {}
+    }
+    function render() {
+      const key = (location.hash || '#start').slice(1);
+      const allowed = ['start','features','regeln'];
+      const show = allowed.includes(key) ? key : 'start';
+      document.querySelectorAll('.page').forEach(s => s.classList.toggle('active', s.id === show));
+    }
+    window.addEventListener('hashchange', render);
+    render();
+    checkStatus();
+    
+  </script>
+</body>
+</html>
