@@ -7,7 +7,7 @@
     <meta name="description" content="Minimalistischer Minecraft Server">
     <link rel="preconnect" href="https://fonts.googleapis.com">
     <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
-    <!-- Pixelige Fonts -->
+    
     <link href="https://fonts.googleapis.com/css2?family=VT323&family=DotGothic16&display=swap" rel="stylesheet">
     <link rel="icon" type="image/png" href="ONCraft_Mini.png">
     <style>
@@ -15,7 +15,7 @@
             --bg: #050a05; 
             --fg: #d0f0d0; 
             --muted: #5e8a5e; 
-            --primary: #00ff41; /* Matrix/Terminal Green */
+            --primary: #00ff41; 
             --primary-dark: #008f11;
             --glass: rgba(0, 20, 0, 0.6); 
             --border: #00ff41; 
@@ -23,7 +23,7 @@
 
         * { 
             box-sizing: border-box; 
-            image-rendering: pixelated; /* Erzeugt Pixel-Look */
+            image-rendering: pixelated; 
         }
 
         body { 
@@ -219,30 +219,31 @@
     </header>
 
     <main class="container">
-        <!-- Start -->
+
         <section id="start" class="pixel-box">
             <h1 class="title">> WILLKOMMEN</h1>
-            <p>Minimalistisches Survival & Community Erlebnis auf der 1.20.x</p>
+            <p>Survival & Minigames</p>
             
             <div class="status-area">
-                <!-- Java -->
+
                 <div class="status-row">
                     <div>
                         <span class="status-label">JAVA:</span>
                         <span class="status-value">java.oncraft.de</span>
-                        <button class="btn small" onclick="copyIP('java.oncraft.de', this)">COPY</button>
+                        <button class="btn small" onclick="copyIP('bedrock.oncraft.de:12852', this)"></button>
+                        <button class="btn small" onclick="copyIP('java.oncraft.de', this)"></button>
                     </div>
                     <div id="status-java">
                         <span class="status-dot" id="dot-java"></span>
                         <span id="text-java" class="status-value">...</span>
                     </div>
                 </div>
-                <!-- Bedrock -->
+
                 <div class="status-row">
                     <div>
-                        <span class="status-label">BE:</span>
-                        <span class="status-value">bedrock.oncraft.de:12852</span>
-                        <button class="btn small" onclick="copyIP('bedrock.oncraft.de:12852', this)">COPY</button>
+                        <span class="status-label">BEDROCK:</span>
+                        <span class="status-value">bedrock.oncraft.de, Port 12852</span>
+                        <button class="btn small" onclick="copyIP('bedrock.oncraft.de', this)">COPY</button>
                     </div>
                     <div id="status-bedrock">
                         <span class="status-dot" id="dot-bedrock"></span>
@@ -250,33 +251,29 @@
                     </div>
                 </div>
             </div>
-
-            <a href="#features" class="btn">MEHR INFOS</a>
-        </section>
-
-        <!-- Features -->
+            
         <section id="features" class="card-grid">
             <div class="card">
-                <h3>CRAFT ATTACK</h3>
-                <p>Zusammen bauen. Zusammen farmen. Eine Welt.</p>
+                <h3>SURVIVAL</h3>
+                <p>Bauen. Farmen. Griefen.</p>
             </div>
             <div class="card">
-                <h3>SMP EVENTS</h3>
-                <p>Herausforderungen für wahre Survival-Profis.</p>
+                <h3>EVENTS</h3>
+                <p>Ab und zu gibt es Events.</p>
             </div>
             <div class="card">
-                <h3>PVP DUELS</h3>
+                <h3>DUELS</h3>
                 <p>Zeig deine Skills in der Arena.</p>
             </div>
             <div class="card">
-                <h3>FAIRPLAY</h3>
-                <p>Keine Cheats. Kein Griefing. Nur Community.</p>
+                <h3>REGELN</h3>
+                <p>Keine Cheats. Keine Beleidigungen. Scamming erlaubt. </p>
             </div>
         </section>
     </main>
 
     <footer>
-        [ © 2024 ONCRAFT_NETWORK ]
+        © 2025-26 ONCRAFT
     </footer>
 
     <script>
@@ -294,7 +291,7 @@
         const BEDROCK_PORT = 12852;
 
         async function updatePing() {
-            // Java Status
+
             try {
                 const response = await fetch(`https://api.mcstatus.io/v2/status/java/${JAVA_HOST}`);
                 const data = await response.json();
@@ -310,7 +307,6 @@
                 }
             } catch (e) { document.getElementById('text-java').textContent = 'ERR'; }
 
-            // Bedrock Status
             try {
                 const response = await fetch(`https://api.mcstatus.io/v2/status/bedrock/${BEDROCK_HOST}:${BEDROCK_PORT}`);
                 const data = await response.json();
